@@ -71,7 +71,7 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 		QueryParams.AddIgnoredActor(this);
 		QueryParams.AddIgnoredActor(Camera);
 
-		TEnumAsByte<enum ECollisionChannel> CustomHitCollisionChannnel = ECC_GameTraceChannel1;
+		TEnumAsByte<enum ECollisionChannel> CustomHitCollisionChannnel = ECC_GameTraceChannel2;
 
 		if (CustomHitCollisionChannnel)
 		{
