@@ -21,6 +21,12 @@ public:
 	UPROPERTY(Transient)
 	bool CanInteractWithLaser = false;
 
+	UPROPERTY(Transient, EditAnywhere, BlueprintReadWrite)
+	bool bCanStartLaser = false;
+
+	UPROPERTY(Transient, EditAnywhere, BlueprintReadWrite)
+	bool bCanOpenCover = false;
+
 	UPROPERTY(EditInstanceOnly)
 	TSubclassOf<class ULaserWidget> WSettings;
 
@@ -49,4 +55,10 @@ public:
 	bool bIsCharacterOnRange();
 
 	void SpawnTable();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnChangeMaterialCover();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnChangeMaterialLaser();
 };

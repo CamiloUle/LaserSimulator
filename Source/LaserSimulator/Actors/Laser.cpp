@@ -43,7 +43,12 @@ void ALaser::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	bIsCharacterOnRange();
-	//BeginLaserEngraving();
+	
+	if (!bIsCharacterOnRange() )
+	{
+		//bCanStartLaser = false;
+		//bCanOpenCover = false;
+	}
 }
 
 void ALaser::LaserInteract()
@@ -54,19 +59,23 @@ void ALaser::LaserInteract()
 	if (!PlayerController)
 		return;
 
-	if (WidgetSettings && Character->bIsTraceWithActor(this))
+	if (WidgetSettings)
 	{
-		CanInteractWithLaser = !CanInteractWithLaser;
+		if (Character->bIsTraceWithActor(this)) 
+		{
+			CanInteractWithLaser = !CanInteractWithLaser;
 
-		if (CanInteractWithLaser)
-		{
-			WidgetSettings->OpenUI();
-			PlayerController->EnableMouseCursor(WidgetSettings);
-		}
-		else
-		{
-			WidgetSettings->CloseUI();
-			PlayerController->DisableMouseCursor();
+			if (CanInteractWithLaser)
+			{
+				
+				WidgetSettings->OpenUI();
+				PlayerController->EnableMouseCursor(WidgetSettings);
+			}
+			else
+			{
+				WidgetSettings->CloseUI();
+				PlayerController->DisableMouseCursor();
+			}
 		}
 	}
 }

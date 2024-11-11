@@ -22,6 +22,7 @@ public:
 	void InputMovementY(float Value);
 
 	void InteractWithObject();
+	void PlayAnimHand();
 
 	UFUNCTION(BlueprintCallable)
 	void DisableMouseCursor();

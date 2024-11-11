@@ -7,6 +7,7 @@
 #include "Actors/Laser.h"
 
 #include "Kismet/GameplayStatics.h"
+#include "Components/StaticMeshComponent.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values
@@ -14,7 +15,9 @@ ALSCharacter::ALSCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hand"));
+	MeshComp->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +40,7 @@ void ALSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (Camera)
+	if (Camera && MeshComp)
 	{
 		FRotator CameraRotation = Camera->GetActorRotation();
 
@@ -47,6 +50,7 @@ void ALSCharacter::Tick(float DeltaTime)
 
 		FVector MovementDirection = (ForwardDirection * InputMovement.X) + (RightDirection * InputMovement.Y);
 		AddMovementInput(MovementDirection);
+		//MeshComp->SetWorldLocation(ForwardDirection + RightDirection);
 
 		if (MovementDirection.Size2D() > 0)
 		{
@@ -64,7 +68,7 @@ void ALSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 {
-	if (OtherActor && Camera)
+	if (OtherActor && Camera && Laser)
 	{
 		FCollisionQueryParams QueryParams;
 		FHitResult OutHit;
@@ -87,10 +91,33 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 
 			if (bIsHit)
 			{
+				
 				if (OutHit.GetActor()->GetActorNameOrLabel() == OtherActor->GetActorNameOrLabel())
 				{
 					return bIsHit;
 				}
+			}
+
+			bool bIsHitComponents = false;
+
+			if (OutHit.GetComponent())
+			{
+				if (OutHit.GetComponent()->GetName() == "Tapa")
+				{
+					Laser->bCanOpenCover = true;
+					bIsHitComponents = true;
+				}
+				else if (OutHit.GetComponent()->GetName() == "Laser")
+				{
+					Laser->bCanStartLaser = true;
+					bIsHitComponents = true;
+				}
+			}
+
+			if (!bIsHitComponents)
+			{
+				Laser->bCanOpenCover = false;
+				Laser->bCanStartLaser = false;
 			}
 		}
 	}
