@@ -102,13 +102,14 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 
 			if (OutHit.GetComponent())
 			{
-				if (OutHit.GetComponent()->GetName() == "Tapa")
+				if (OutHit.GetComponent()->GetName() == "CoverChild")
 				{
 					Laser->bCanOpenCover = true;
 					bIsHitComponents = true;
 				}
 				else if (OutHit.GetComponent()->GetName() == "Laser")
 				{
+					GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, TEXT("Laser"));
 					Laser->bCanStartLaser = true;
 					bIsHitComponents = true;
 				}

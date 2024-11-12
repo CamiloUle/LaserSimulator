@@ -73,7 +73,6 @@ void UInteractComponent::ShowUI()
 						if (DistanceSqr <= (ActorInfo.DistanceToInteract * ActorInfo.DistanceToInteract) && Character->bIsTraceWithActor(Actor))
 						{
 							CanShowWidget = true;
-							DrawDebugSphere(GetWorld(), ActorLocation, 90.0f, 20.0f, FColor::Purple, false, -1.f);
 							break;
 						}
 					}
