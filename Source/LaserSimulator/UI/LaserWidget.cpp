@@ -36,7 +36,7 @@ void ULaserWidget::StartEngraving()
 		if (PlayerController->bIsFileExport) 
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Start operation"));
-			PlayerController->StartGravingImage();
+			//PlayerController->StartGravingImage();
 		}
 		else
 		{

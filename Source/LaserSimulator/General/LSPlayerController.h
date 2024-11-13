@@ -34,7 +34,7 @@ public:
 	
 	void LoadImageFromPC(USettingsWidget* InWidget);
 
-	void StartGravingImage();
+	void RestoreValues();
 
 	UPROPERTY(Transient)
 	FVector2D InputMovement = FVector2D::ZeroVector;
@@ -42,7 +42,7 @@ public:
 	UPROPERTY(Transient)
 	bool bShouldCreateWidget = true;
 
-	UPROPERTY(Transient)
+	UPROPERTY(Transient, BlueprintReadOnly)
 	bool bCanStartEngraving = false;
 
 	UPROPERTY(Transient)

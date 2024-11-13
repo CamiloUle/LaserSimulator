@@ -21,20 +21,17 @@ public:
 	UPROPERTY(Transient)
 	bool CanInteractWithLaser = false;
 
-	UPROPERTY(Transient, EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Transient, BlueprintReadWrite)
 	bool bCanStartLaser = false;
 
-	UPROPERTY(Transient, EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(Transient, BlueprintReadWrite)
 	bool bCanOpenCover = false;
 
 	UPROPERTY(EditInstanceOnly)
 	TSubclassOf<class ULaserWidget> WSettings;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<class ATable> TableToEngravingSpawn;
-
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<class ATable> TableToCutSpawn;
+	TSubclassOf<class ATable> TableToSpawn;
 
 	UPROPERTY(Transient)
 	class ULaserWidget* WidgetSettings;

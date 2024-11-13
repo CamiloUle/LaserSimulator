@@ -163,11 +163,10 @@ UTexture2D* ALSPlayerController::LoadedTextureFromFile(const FString& FilePath)
 	return Texture;
 }
 
-void ALSPlayerController::StartGravingImage()
+void ALSPlayerController::RestoreValues()
 {
 	if (Laser && bIsFileExport)
 	{
-		//Laser->SpawnTable();
 		bIsFileExport = false;
 		bCanStartCuting = false;
 		bCanStartEngraving = false;
