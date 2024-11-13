@@ -30,11 +30,6 @@ void ALSCharacter::BeginPlay()
 	Laser = Cast<ALaser>(UGameplayStatics::GetActorOfClass(GetWorld(), ALaser::StaticClass()));
 }
 
-void ALSCharacter::OpenUI()
-{
-
-}
-
 // Called every frame
 void ALSCharacter::Tick(float DeltaTime)
 {

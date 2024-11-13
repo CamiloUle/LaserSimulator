@@ -167,7 +167,7 @@ void ALSPlayerController::StartGravingImage()
 {
 	if (Laser && bIsFileExport)
 	{
-		Laser->SpawnTable();
+		//Laser->SpawnTable();
 		bIsFileExport = false;
 		bCanStartCuting = false;
 		bCanStartEngraving = false;

@@ -29,11 +29,6 @@ void ALaser::BeginPlay()
 	if (WSettings) 
 	{
 		WidgetSettings = CreateWidget<ULaserWidget>(GetWorld(), WSettings);
-
-		if (WidgetSettings)
-		{
-			WidgetSettings->CloseUI();
-		}
 	}
 }
 
@@ -43,12 +38,6 @@ void ALaser::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	bIsCharacterOnRange();
-	
-	if (!bIsCharacterOnRange() )
-	{
-		//bCanStartLaser = false;
-		//bCanOpenCover = false;
-	}
 }
 
 void ALaser::LaserInteract()
@@ -116,8 +105,6 @@ void ALaser::SpawnTable()
 			if (PlayerController->bCanStartEngraving)
 			{
 				Table = GetWorld()->SpawnActor<ATable>(TableToEngravingSpawn, LaserLocation, LaserRotation, SpawnParams);
-
-				
 			}
 			else if (PlayerController->bCanStartCuting)
 			{

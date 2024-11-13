@@ -29,11 +29,6 @@ void AComputer::BeginPlay()
 	if (WSettings)
 	{
 		WidgetSettings = CreateWidget<USettingsWidget>(GetWorld(), WSettings);
-
-		if (WidgetSettings)
-		{
-			WidgetSettings->SetVisibility(ESlateVisibility::Hidden);
-		}
 	}
 }
 
@@ -44,7 +39,7 @@ void AComputer::Tick(float DeltaTime)
 
 	bIsInCharacterRange();
 
-	if (WidgetSettings && PlayerController)
+	if (WidgetSettings)
 	{
 		if (bIsComputerOn && !bIsInCharacterRange())
 		{

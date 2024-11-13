@@ -54,6 +54,7 @@ public:
 
 	bool bIsCharacterOnRange();
 
+	UFUNCTION(BlueprintCallable)
 	void SpawnTable();
 
 	UFUNCTION(BlueprintImplementableEvent)
