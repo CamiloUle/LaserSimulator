@@ -37,7 +37,5 @@ void ALSCameraActor::Tick(float DeltaTime)
 		NewRotation.Yaw += DeltaX;
 		NewRotation.Pitch += DeltaY;
 		SetActorRotation(NewRotation);
-
-		Character->MeshComp->SetRelativeRotation(NewRotation);
 	}
 }

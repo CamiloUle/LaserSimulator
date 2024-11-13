@@ -31,9 +31,6 @@ public:
 	UPROPERTY(Transient)
 	class ALaser* Laser;
 
-	UPROPERTY(Transient, EditAnywhere)
-	class UStaticMeshComponent* MeshComp;
-
 	bool bIsTraceWithActor(AActor* OtherActor);
 
 

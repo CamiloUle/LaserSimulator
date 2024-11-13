@@ -15,9 +15,6 @@ ALSCharacter::ALSCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Hand"));
-	MeshComp->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -35,7 +32,7 @@ void ALSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (Camera && MeshComp)
+	if (Camera)
 	{
 		FRotator CameraRotation = Camera->GetActorRotation();
 
@@ -45,7 +42,6 @@ void ALSCharacter::Tick(float DeltaTime)
 
 		FVector MovementDirection = (ForwardDirection * InputMovement.X) + (RightDirection * InputMovement.Y);
 		AddMovementInput(MovementDirection);
-		//MeshComp->SetWorldLocation(ForwardDirection + RightDirection);
 
 		if (MovementDirection.Size2D() > 0)
 		{
