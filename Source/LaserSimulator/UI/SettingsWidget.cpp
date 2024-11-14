@@ -11,14 +11,12 @@
 void USettingsWidget::CloseUI()
 {
 	SetVisibility(ESlateVisibility::Hidden);
-	//RemoveFromParent();
 }
 
 void USettingsWidget::OpenUI()
 {
 	SetVisibility(ESlateVisibility::Visible);
 	AddToViewport();
-
 }
 
 void USettingsWidget::NativeConstruct()

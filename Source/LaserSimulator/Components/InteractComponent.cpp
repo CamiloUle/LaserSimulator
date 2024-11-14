@@ -33,8 +33,9 @@ void UInteractComponent::BeginPlay()
 		{
 			UI = CreateWidget<UInteractableWidget>(GetWorld(), ActorInfo.InteractableUI);
 
-			if (UI)
+			if (UI) 
 			{
+				UI->AddToViewport();
 				UI->SetVisibility(ESlateVisibility::Hidden);
 			}
 		}
@@ -80,12 +81,10 @@ void UInteractComponent::ShowUI()
 					if (CanShowWidget && UI->Visibility != ESlateVisibility::Visible) 
 					{
 						UI->SetVisibility(ESlateVisibility::Visible);
-						UI->AddToViewport();
 					}
 					else if (!CanShowWidget && UI->Visibility != ESlateVisibility::Hidden)
 					{
 						UI->SetVisibility(ESlateVisibility::Hidden);
-						UI->RemoveFromParent();
 					}
 				}
 			}
