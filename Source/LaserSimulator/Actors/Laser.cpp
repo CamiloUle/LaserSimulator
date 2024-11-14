@@ -98,11 +98,14 @@ void ALaser::SpawnTable()
 		SpawnParams.bNoFail = true;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		ATable* Table = GetWorld()->SpawnActor<ATable>(TableToSpawn, LaserLocation, LaserRotation, SpawnParams);
-
+		
 		if (PlayerController) 
 		{
-			PlayerController->RestoreValues();
+			if (PlayerController->bCanStartCuting || PlayerController->bCanStartEngraving) 
+			{
+				ATable* Table = GetWorld()->SpawnActor<ATable>(TableToSpawn, LaserLocation, LaserRotation, SpawnParams);
+				//PlayerController->RestoreValues();
+			}
 		}
 	}
 }

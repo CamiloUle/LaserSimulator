@@ -45,7 +45,7 @@ public:
 	UPROPERTY(Transient, BlueprintReadOnly)
 	bool bCanStartEngraving = false;
 
-	UPROPERTY(Transient)
+	UPROPERTY(Transient, BlueprintReadOnly)
 	bool bCanStartCuting = false;
 
 	UPROPERTY(Transient)
