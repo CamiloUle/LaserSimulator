@@ -23,6 +23,7 @@ public:
 
 	void InteractWithObject();
 	void PlayAnimHand();
+	void StopAnimHand();
 
 	UFUNCTION(BlueprintCallable)
 	void DisableMouseCursor();

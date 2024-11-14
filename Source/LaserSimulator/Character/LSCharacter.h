@@ -17,7 +17,8 @@ public:
 
 
 public:
-	UPROPERTY(Transient)
+
+	UPROPERTY(Transient, BlueprintReadOnly)
 	FVector InputMovement;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -31,6 +32,9 @@ public:
 
 	UPROPERTY(Transient)
 	class ALaser* Laser;
+
+	UPROPERTY(Transient, BlueprintReadOnly)
+	bool bCanPlayAnimHand = false;
 
 	bool bIsTraceWithActor(AActor* OtherActor);
 

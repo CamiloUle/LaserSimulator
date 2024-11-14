@@ -42,7 +42,6 @@ protected:
 	UPROPERTY(Transient)
 	class ALSPlayerController* PC;
 
-
 private:
 
 	virtual void BeginPlay() override;

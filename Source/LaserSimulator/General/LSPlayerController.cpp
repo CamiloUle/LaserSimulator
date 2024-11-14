@@ -3,6 +3,7 @@
 
 #include "General/LSPlayerController.h"
 #include "Character/LSCharacter.h"
+#include "Camera/LSCameraActor.h"
 #include "Managers/LaserSimulatorManager.h"
 #include "Actors/Computer.h"
 #include "Actors/Laser.h"
@@ -24,6 +25,7 @@ void ALSPlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("Interact",IE_Pressed, this, &ALSPlayerController::InteractWithObject);
 	InputComponent->BindAction("Hand", IE_Pressed, this, &ALSPlayerController::PlayAnimHand);
+	InputComponent->BindAction("Hand", IE_Released, this, &ALSPlayerController::StopAnimHand);
 	InputComponent->BindAction("Pause", IE_Pressed, this, &ALSPlayerController::InputPauseMenu);
 }
 
@@ -69,10 +71,19 @@ void ALSPlayerController::InteractWithObject()
 
 void ALSPlayerController::PlayAnimHand()
 {
-	if (Laser)
+	if (Laser && Character)
 	{
 		Laser->OnChangeMaterialCover();
 		Laser->OnChangeMaterialLaser();
+		Character->bCanPlayAnimHand = true;
+	}
+}
+
+void ALSPlayerController::StopAnimHand()
+{
+	if (Character) 
+	{
+		Character->bCanPlayAnimHand = false;
 	}
 }
 
