@@ -16,6 +16,7 @@ public:
 	ALSCharacter();
 
 
+public:
 	UPROPERTY(Transient)
 	FVector InputMovement;
 

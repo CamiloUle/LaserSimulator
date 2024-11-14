@@ -100,8 +100,12 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 				}
 				else if (OutHit.GetComponent()->GetName() == "Laser")
 				{
-					GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Yellow, TEXT("Laser"));
 					Laser->bCanStartLaser = true;
+					bIsHitComponents = true;
+				}
+				else if (OutHit.GetComponent()->GetName() == "Computer")
+				{
+					Computer->bCanChangeMaterial = true;
 					bIsHitComponents = true;
 				}
 			}
@@ -110,6 +114,7 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 			{
 				Laser->bCanOpenCover = false;
 				Laser->bCanStartLaser = false;
+				Computer->bCanChangeMaterial = false;
 			}
 		}
 	}

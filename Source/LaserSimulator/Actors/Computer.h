@@ -24,6 +24,9 @@ public:
 	UPROPERTY(Transient)
 	bool bIsComputerOn = false;
 
+	UPROPERTY(Transient, BlueprintReadWrite)
+	bool bCanChangeMaterial = false;
+
 	UPROPERTY(EditInstanceOnly)
 	TSubclassOf<class USettingsWidget> WSettings;
 
