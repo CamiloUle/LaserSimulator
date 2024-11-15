@@ -76,8 +76,6 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 			FVector StarPosition = CameraPosition;
 			FVector EndPosition = StarPosition + (CameraRotation.Vector()) * 400.0f;
 
-			//DrawDebugLine(GetWorld(), StarPosition, EndPosition, FColor::Emerald, false, 0.05f, 0.0f, 1.0f);
-
 			bool bIsHit = GetWorld()->LineTraceSingleByChannel(OutHit, StarPosition, EndPosition, CustomHitCollisionChannnel, QueryParams);
 
 			if (bIsHit)
@@ -103,6 +101,11 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 					Laser->bCanStartLaser = true;
 					bIsHitComponents = true;
 				}
+				else if (OutHit.GetComponent()->GetName() == "ControlPanel")
+				{
+					Laser->bIsTraceWithPanel = true;
+					bIsHitComponents = true;
+				}
 				else if (OutHit.GetComponent()->GetName() == "Computer")
 				{
 					Computer->bCanChangeMaterial = true;
@@ -114,6 +117,7 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 			{
 				Laser->bCanOpenCover = false;
 				Laser->bCanStartLaser = false;
+				Laser->bIsTraceWithPanel = false;
 				Computer->bCanChangeMaterial = false;
 			}
 		}

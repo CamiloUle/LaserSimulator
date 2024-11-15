@@ -41,7 +41,7 @@ void AComputer::Tick(float DeltaTime)
 
 	if (WidgetSettings)
 	{
-		if (bIsComputerOn && !bIsInCharacterRange())
+		if (!bIsInCharacterRange())
 		{
 			WidgetSettings->CloseUI();
 		}
@@ -58,18 +58,8 @@ void AComputer::PCInteract()
 
 	if (WidgetSettings && Character->bIsTraceWithActor(this))
 	{
-		bIsComputerOn = !bIsComputerOn;
-
-		if (bIsComputerOn)
-		{
-			WidgetSettings->OpenUI();
-			PlayerController->EnableMouseCursor(WidgetSettings);
-		}
-		else
-		{
-			WidgetSettings->CloseUI();
-			PlayerController->DisableMouseCursor();
-		}
+		WidgetSettings->OpenUI();
+		PlayerController->EnableMouseCursor(WidgetSettings);
 	}
 }
 

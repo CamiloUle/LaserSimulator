@@ -48,23 +48,12 @@ void ALaser::LaserInteract()
 	if (!PlayerController)
 		return;
 
-	if (WidgetSettings)
+	if (WidgetSettings && bIsTraceWithPanel)
 	{
 		if (Character->bIsTraceWithActor(this)) 
 		{
-			CanInteractWithLaser = !CanInteractWithLaser;
-
-			if (CanInteractWithLaser)
-			{
-				
-				WidgetSettings->OpenUI();
-				PlayerController->EnableMouseCursor(WidgetSettings);
-			}
-			else
-			{
-				WidgetSettings->CloseUI();
-				PlayerController->DisableMouseCursor();
-			}
+			WidgetSettings->OpenUI();
+			PlayerController->EnableMouseCursor(WidgetSettings);
 		}
 	}
 }

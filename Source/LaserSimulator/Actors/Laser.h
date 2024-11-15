@@ -18,8 +18,8 @@ public:
 	UPROPERTY(Transient)
 	class ALSCharacter* Character;
 
-	UPROPERTY(Transient)
-	bool CanInteractWithLaser = false;
+	UPROPERTY(Transient, BlueprintReadWrite)
+	bool bIsTraceWithPanel = false;
 
 	UPROPERTY(Transient, BlueprintReadWrite)
 	bool bCanStartLaser = false;

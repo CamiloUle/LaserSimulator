@@ -23,7 +23,6 @@ void ALSPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MovementX", this, &ALSPlayerController::InputMovementX);
 	InputComponent->BindAxis("MovementY", this, &ALSPlayerController::InputMovementY);
 
-	InputComponent->BindAction("Interact",IE_Pressed, this, &ALSPlayerController::InteractWithObject);
 	InputComponent->BindAction("Hand", IE_Pressed, this, &ALSPlayerController::PlayAnimHand);
 	InputComponent->BindAction("Hand", IE_Released, this, &ALSPlayerController::StopAnimHand);
 	InputComponent->BindAction("Pause", IE_Pressed, this, &ALSPlayerController::InputPauseMenu);
@@ -60,21 +59,14 @@ void ALSPlayerController::InputMovementY(float Value)
 	}
 }
 
-void ALSPlayerController::InteractWithObject()
-{
-	if (!Computer || !Laser) 
-		return;
-
-	Computer->PCInteract();
-	Laser->LaserInteract();
-}
-
 void ALSPlayerController::PlayAnimHand()
 {
-	if (Laser && Character)
+	if (Laser && Character && Computer)
 	{
 		Laser->OnChangeMaterialCover();
 		Laser->OnChangeMaterialLaser();
+		Computer->PCInteract();
+		Laser->LaserInteract();
 		Character->bCanPlayAnimHand = true;
 	}
 }

@@ -21,9 +21,6 @@ public:
 	UPROPERTY(Transient)
 	bool CanInteractWithPc = false;
 
-	UPROPERTY(Transient)
-	bool bIsComputerOn = false;
-
 	UPROPERTY(Transient, BlueprintReadWrite)
 	bool bCanChangeMaterial = false;
 
