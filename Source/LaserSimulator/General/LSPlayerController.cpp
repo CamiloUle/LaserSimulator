@@ -67,7 +67,7 @@ void ALSPlayerController::PlayAnimHand()
 		Laser->OnChangeMaterialLaser();
 		Computer->PCInteract();
 		Laser->LaserInteract();
-		Character->bCanPlayAnimHand = true;
+		Character->GrabObject();
 	}
 }
 
@@ -75,7 +75,7 @@ void ALSPlayerController::StopAnimHand()
 {
 	if (Character) 
 	{
-		Character->bCanPlayAnimHand = false;
+		Character->ReleaseObject();
 	}
 }
 

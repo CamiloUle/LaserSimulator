@@ -15,6 +15,8 @@ public:
 	// Sets default values for this actor's properties
 	ATable();
 
+	UPROPERTY(Transient, BlueprintReadWrite)
+	bool bCanChangeMaterial = false;
 
 protected:
 	// Called when the game starts or when spawned

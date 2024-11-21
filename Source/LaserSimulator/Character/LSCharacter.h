@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "LSCharacter.generated.h"
+
+class UPhysicsHandleComponent;
 
 UCLASS()
 class LASERSIMULATOR_API ALSCharacter : public ACharacter
@@ -33,11 +36,13 @@ public:
 	UPROPERTY(Transient)
 	class ALaser* Laser;
 
-	UPROPERTY(Transient, BlueprintReadOnly)
-	bool bCanPlayAnimHand = false;
+	UPROPERTY(Transient)
+	class ATable* Table;
+
+	UPROPERTY(VisibleAnywhere)
+	UPhysicsHandleComponent* PhysicsHandle;
 
 	bool bIsTraceWithActor(AActor* OtherActor);
-
 
 protected:
 	// Called when the game starts or when spawned
@@ -54,4 +59,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPlayAnimHand();
+
+	void GrabObject();
+	void ReleaseObject();
 };

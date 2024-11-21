@@ -5,9 +5,11 @@
 #include "Camera/LSCameraActor.h"
 #include "Actors/Computer.h"
 #include "Actors/Laser.h"
+#include "Actors/Table.h"
 
 #include "Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values
@@ -15,6 +17,8 @@ ALSCharacter::ALSCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	PhysicsHandle = CreateDefaultSubobject<UPhysicsHandleComponent>(TEXT("HandleComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +29,7 @@ void ALSCharacter::BeginPlay()
 	Camera = Cast<ALSCameraActor>(UGameplayStatics::GetActorOfClass(GetWorld(), ALSCameraActor::StaticClass()));
 	Computer = Cast<AComputer>(UGameplayStatics::GetActorOfClass(GetWorld(), AComputer::StaticClass()));
 	Laser = Cast<ALaser>(UGameplayStatics::GetActorOfClass(GetWorld(), ALaser::StaticClass()));
+	Table = Cast<ATable>(UGameplayStatics::GetActorOfClass(GetWorld(), ATable::StaticClass()));
 }
 
 // Called every frame
@@ -46,6 +51,20 @@ void ALSCharacter::Tick(float DeltaTime)
 		if (MovementDirection.Size2D() > 0)
 		{
 			LastMovementDirection = MovementDirection;
+		}
+	}
+
+	if (PhysicsHandle && Camera)
+	{
+		if (PhysicsHandle->GetGrabbedComponent() != nullptr) 
+		{
+			FVector CameraPosition = Camera->GetActorLocation();
+			FRotator CameraRotation = Camera->GetActorRotation();
+
+			FVector StarPosition = CameraPosition;
+			FVector EndPosition = StarPosition + (CameraRotation.Vector()) * 100.0f;
+
+			PhysicsHandle->SetTargetLocationAndRotation(EndPosition, CameraRotation);
 		}
 	}
 }
@@ -74,18 +93,18 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 			FRotator CameraRotation = Camera->GetActorRotation();
 
 			FVector StarPosition = CameraPosition;
-			FVector EndPosition = StarPosition + (CameraRotation.Vector()) * 400.0f;
+			FVector EndPosition = StarPosition + (CameraRotation.Vector()) * 200.0f;
 
 			bool bIsHit = GetWorld()->LineTraceSingleByChannel(OutHit, StarPosition, EndPosition, CustomHitCollisionChannnel, QueryParams);
 
 			if (bIsHit)
 			{
-				
 				if (OutHit.GetActor()->GetActorNameOrLabel() == OtherActor->GetActorNameOrLabel())
 				{
 					return bIsHit;
 				}
 			}
+			
 
 			bool bIsHitComponents = false;
 
@@ -111,6 +130,11 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 					Computer->bCanChangeMaterial = true;
 					bIsHitComponents = true;
 				}
+				else if (OutHit.GetComponent()->GetName() == "Table")
+				{
+					Table->bCanChangeMaterial = true;
+					bIsHitComponents = true;
+				}
 			}
 
 			if (!bIsHitComponents)
@@ -119,6 +143,7 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 				Laser->bCanStartLaser = false;
 				Laser->bIsTraceWithPanel = false;
 				Computer->bCanChangeMaterial = false;
+				Table->bCanChangeMaterial = false;
 			}
 		}
 	}
@@ -126,3 +151,55 @@ bool ALSCharacter::bIsTraceWithActor(AActor* OtherActor)
 	return false;
 }
 
+void ALSCharacter::GrabObject()
+{
+	if (PhysicsHandle == nullptr)
+	{
+		return;
+	}
+
+	FCollisionQueryParams QueryParams;
+	FHitResult OutHit;
+	QueryParams.AddIgnoredActor(this);
+	QueryParams.AddIgnoredActor(Camera);
+
+	TEnumAsByte<enum ECollisionChannel> CustomHitCollisionChannnel = ECC_GameTraceChannel2;
+
+	if (Camera) 
+	{
+		if (CustomHitCollisionChannnel)
+		{
+			FVector CameraPosition = Camera->GetActorLocation();
+			FRotator CameraRotation = Camera->GetActorRotation();
+
+			FVector StarPosition = CameraPosition;
+			FVector EndPosition = StarPosition + (CameraRotation.Vector()) * 200.0f;
+
+			bool bIsHit = GetWorld()->LineTraceSingleByChannel(OutHit, StarPosition, EndPosition, CustomHitCollisionChannnel, QueryParams);
+
+			if (bIsHit)
+			{
+				UPrimitiveComponent* HitComponent = OutHit.GetComponent();
+
+				if (HitComponent) 
+				{
+					HitComponent->WakeAllRigidBodies();
+
+					PhysicsHandle->GrabComponentAtLocationWithRotation(
+						HitComponent,
+						NAME_None,
+						OutHit.ImpactPoint,
+						OutHit.GetComponent()->GetComponentRotation());
+				}
+			}
+		}
+	}
+}
+
+void ALSCharacter::ReleaseObject()
+{
+	if (PhysicsHandle && PhysicsHandle->GetGrabbedComponent() != nullptr)
+	{
+		PhysicsHandle->ReleaseComponent();
+	}
+}
