@@ -114,8 +114,7 @@ void ALSPlayerController::EnableMouseCursor(UUserWidget* WidgetToFocus)
 
 		if (WidgetToFocus->IsFocusable())
 		{
-			WidgetToFocus->SetKeyboardFocus();
-			
+			WidgetToFocus->SetKeyboardFocus();	
 		}
 	}
 }
