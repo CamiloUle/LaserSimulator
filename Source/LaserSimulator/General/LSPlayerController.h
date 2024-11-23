@@ -21,9 +21,11 @@ public:
 	void InputMovementX(float Value);
 	void InputMovementY(float Value);
 
-	void InteractWithObject();
-	void PlayAnimHand();
-	void StopAnimHand();
+	void PlayInteractions();
+	void StopGrabObject();
+
+	void PlayGraving();
+	void StopGraving();
 
 	UFUNCTION(BlueprintCallable)
 	void DisableMouseCursor();

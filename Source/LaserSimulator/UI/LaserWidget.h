@@ -36,11 +36,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartEngraving();
 
+	UFUNCTION(BlueprintCallable)
+	void StopEngraving();
+
 	UPROPERTY(meta = (BindWidget))
 	class UButton* CloseUIButton;
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* StartEngravingButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* StoptEngravingButton;
 
 	UFUNCTION()
 	void OnButtonCliked();

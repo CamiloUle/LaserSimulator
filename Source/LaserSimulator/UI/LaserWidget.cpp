@@ -26,6 +26,7 @@ void ULaserWidget::NativeConstruct()
 	{
 		CloseUIButton->OnClicked.AddDynamic(this, &ULaserWidget::OnButtonCliked);
 		StartEngravingButton->OnClicked.AddDynamic(this, &ULaserWidget::StartEngraving);
+		StoptEngravingButton->OnClicked.AddDynamic(this, &ULaserWidget::StopEngraving);
 	}
 }
 
@@ -36,12 +37,22 @@ void ULaserWidget::StartEngraving()
 		if (PlayerController->bIsFileExport) 
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Start operation"));
-			//PlayerController->StartGravingImage();
+			PlayerController->PlayGraving();
+			PlayerController->DisableMouseCursor();
+			CloseUI();
 		}
 		else
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Cant Start operation"));
 		}
+	}
+}
+
+void ULaserWidget::StopEngraving()
+{
+	if (ALSPlayerController* PlayerController = Cast<ALSPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0))) 
+	{
+		PlayerController->StopGraving();
 	}
 }
 

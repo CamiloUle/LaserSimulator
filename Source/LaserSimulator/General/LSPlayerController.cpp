@@ -23,8 +23,8 @@ void ALSPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MovementX", this, &ALSPlayerController::InputMovementX);
 	InputComponent->BindAxis("MovementY", this, &ALSPlayerController::InputMovementY);
 
-	InputComponent->BindAction("Hand", IE_Pressed, this, &ALSPlayerController::PlayAnimHand);
-	InputComponent->BindAction("Hand", IE_Released, this, &ALSPlayerController::StopAnimHand);
+	InputComponent->BindAction("Hand", IE_Pressed, this, &ALSPlayerController::PlayInteractions);
+	InputComponent->BindAction("Hand", IE_Released, this, &ALSPlayerController::StopGrabObject);
 	InputComponent->BindAction("Pause", IE_Pressed, this, &ALSPlayerController::InputPauseMenu);
 }
 
@@ -59,23 +59,38 @@ void ALSPlayerController::InputMovementY(float Value)
 	}
 }
 
-void ALSPlayerController::PlayAnimHand()
+void ALSPlayerController::PlayInteractions()
 {
 	if (Laser && Character && Computer)
 	{
-		Laser->OnChangeMaterialCover();
-		Laser->OnChangeMaterialLaser();
+		Laser->OnPlayTimelineCover();
 		Computer->PCInteract();
 		Laser->LaserInteract();
 		Character->GrabObject();
 	}
 }
 
-void ALSPlayerController::StopAnimHand()
+void ALSPlayerController::StopGrabObject()
 {
 	if (Character) 
 	{
 		Character->ReleaseObject();
+	}
+}
+
+void ALSPlayerController::PlayGraving()
+{
+	if (Laser) 
+	{
+		Laser->OnPlayTimelineLaser();
+	}
+}
+
+void ALSPlayerController::StopGraving()
+{
+	if (Laser)
+	{
+		Laser->OnStopTimeLineLaser();
 	}
 }
 

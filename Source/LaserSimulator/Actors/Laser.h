@@ -55,8 +55,11 @@ public:
 	void SpawnTable();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnChangeMaterialCover();
+	void OnPlayTimelineCover();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnChangeMaterialLaser();
+	void OnPlayTimelineLaser();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnStopTimeLineLaser();
 };
