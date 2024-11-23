@@ -41,15 +41,6 @@ void ALaserSimulatorManager::Tick(float DeltaTime)
 
 }
 
-void ALaserSimulatorManager::ClosePauseUI()
-{
-	if (PauseWidget && PlayerController)
-	{
-		PauseWidget->HideUI();
-		PlayerController->DisableMouseCursor();
-	}
-}
-
 void ALaserSimulatorManager::OpenPauseUI()
 {
 	if (PauseWidget && PlayerController)

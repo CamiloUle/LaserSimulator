@@ -124,16 +124,7 @@ void ALSPlayerController::InputPauseMenu()
 {
 	if (LaserManager) 
 	{
-		if (bShouldCreateWidget)
-		{
-			LaserManager->OpenPauseUI();
-			bShouldCreateWidget = false;
-		}
-		else 
-		{
-			LaserManager->ClosePauseUI();
-			bShouldCreateWidget = true;
-		}
+		LaserManager->OpenPauseUI();
 	}
 }
 
