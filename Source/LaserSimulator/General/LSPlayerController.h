@@ -42,9 +42,6 @@ public:
 	UPROPERTY(Transient)
 	FVector2D InputMovement = FVector2D::ZeroVector;
 
-	UPROPERTY(Transient)
-	bool bShouldCreateWidget = true;
-
 	UPROPERTY(Transient, BlueprintReadOnly)
 	bool bCanStartEngraving = false;
 

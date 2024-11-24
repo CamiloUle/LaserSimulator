@@ -63,12 +63,10 @@ void USettingsWidget::GrabFile()
 		if (!PlayerController->ExportedFilePath.IsEmpty()) 
 		{
 			PlayerController->bCanStartEngraving = true;
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("The file is for graving"));
-		
 		}
 		else 
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("You must select a file"));
+			OnMessageDontHaveFile();
 		}
 	}
 }
@@ -80,11 +78,10 @@ void USettingsWidget::CutFile()
 		if (!PlayerController->ExportedFilePath.IsEmpty())
 		{
 			PlayerController->bCanStartCuting = true;
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("The file is for cutting"));
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("You must select a file"));
+			OnMessageDontHaveFile();
 		}
 	}
 }
@@ -99,7 +96,7 @@ void USettingsWidget::ExportFile()
 		if (PlayerController->bCanStartEngraving && !PlayerController->bCanStartCuting
 			|| !PlayerController->bCanStartEngraving && PlayerController->bCanStartCuting)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("File was exported"));
+			OnMessageExportFile();
 			PlayerController->bIsFileExport = true;
 			ImageWidget->SetOpacity(0.f);
 		}
@@ -108,16 +105,16 @@ void USettingsWidget::ExportFile()
 			PlayerController->bCanStartEngraving = false;
 			PlayerController->bCanStartCuting = false;
 			PlayerController->bIsFileExport = false;
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("You can only export the file for cutting or Engraving."));
+			OnMessageOnlyOneAction();
 		}
 		else if (!PlayerController->ExportedFilePath.IsEmpty() && !PlayerController->bCanStartCuting ||
 			     !PlayerController->ExportedFilePath.IsEmpty() && !PlayerController->bCanStartEngraving)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("you must select a type of action."));
+			OnMessageTypeOfAction();
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Dont have file"));
+			OnMessageDontHaveFile();
 		}
 	}
 }
