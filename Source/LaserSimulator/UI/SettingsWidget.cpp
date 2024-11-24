@@ -63,10 +63,12 @@ void USettingsWidget::GrabFile()
 		if (!PlayerController->ExportedFilePath.IsEmpty()) 
 		{
 			PlayerController->bCanStartEngraving = true;
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("The file is for graving"));
+		
 		}
 		else 
 		{
-			OnMessageDontHaveFile();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("You must select a file"));
 		}
 	}
 }
@@ -78,10 +80,11 @@ void USettingsWidget::CutFile()
 		if (!PlayerController->ExportedFilePath.IsEmpty())
 		{
 			PlayerController->bCanStartCuting = true;
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("The file is for cutting"));
 		}
 		else
 		{
-			OnMessageDontHaveFile();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("You must select a file"));
 		}
 	}
 }
@@ -96,7 +99,7 @@ void USettingsWidget::ExportFile()
 		if (PlayerController->bCanStartEngraving && !PlayerController->bCanStartCuting
 			|| !PlayerController->bCanStartEngraving && PlayerController->bCanStartCuting)
 		{
-			OnMessageExportFile();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("File was exported"));
 			PlayerController->bIsFileExport = true;
 			ImageWidget->SetOpacity(0.f);
 		}
@@ -105,16 +108,16 @@ void USettingsWidget::ExportFile()
 			PlayerController->bCanStartEngraving = false;
 			PlayerController->bCanStartCuting = false;
 			PlayerController->bIsFileExport = false;
-			OnMessageOnlyOneAction();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("You can only export the file for cutting or Engraving."));
 		}
 		else if (!PlayerController->ExportedFilePath.IsEmpty() && !PlayerController->bCanStartCuting ||
 			     !PlayerController->ExportedFilePath.IsEmpty() && !PlayerController->bCanStartEngraving)
 		{
-			OnMessageTypeOfAction();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("you must select a type of action."));
 		}
 		else
 		{
-			OnMessageDontHaveFile();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Dont have file"));
 		}
 	}
 }

@@ -114,7 +114,8 @@ void ALSPlayerController::EnableMouseCursor(UUserWidget* WidgetToFocus)
 
 		if (WidgetToFocus->IsFocusable())
 		{
-			WidgetToFocus->SetKeyboardFocus();	
+			WidgetToFocus->SetKeyboardFocus();
+			
 		}
 	}
 }
@@ -123,7 +124,16 @@ void ALSPlayerController::InputPauseMenu()
 {
 	if (LaserManager) 
 	{
-		LaserManager->OpenPauseUI();
+		if (bShouldCreateWidget)
+		{
+			LaserManager->OpenPauseUI();
+			bShouldCreateWidget = false;
+		}
+		else 
+		{
+			LaserManager->ClosePauseUI();
+			bShouldCreateWidget = true;
+		}
 	}
 }
 

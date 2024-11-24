@@ -17,18 +17,6 @@ class LASERSIMULATOR_API USettingsWidget : public UUserWidget
 
 public:
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnMessageDontHaveFile();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnMessageExportFile();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnMessageOnlyOneAction();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnMessageTypeOfAction();
-
 public:
 
 	UFUNCTION(BlueprintCallable)

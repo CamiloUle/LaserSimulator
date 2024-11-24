@@ -36,13 +36,14 @@ void ULaserWidget::StartEngraving()
 	{
 		if (PlayerController->bIsFileExport) 
 		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Start operation"));
 			PlayerController->PlayGraving();
 			PlayerController->DisableMouseCursor();
 			CloseUI();
 		}
 		else
 		{
-			ShowMessage();
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Cant Start operation"));
 		}
 	}
 }
