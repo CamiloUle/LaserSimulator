@@ -55,6 +55,7 @@ protected:
 
 	virtual void NativeConstruct() override;
 
-	void SpawnEngravingWidget();
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowMessage();
 	
 };
